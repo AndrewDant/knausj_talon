@@ -476,7 +476,8 @@ def draw_list_commands(gui: imgui.GUI):
     global total_page_count
     global selected_context_page
 
-    talon_list = registry.lists[selected_list][0]
+    # TODO make the index dynamic and or controlled by a setting
+    talon_list = registry.lists[selected_list][1]
     #numpages = math.ceil(len(talon_list) / SIZE)
     
     pages_list = []

@@ -1,5 +1,5 @@
 from typing import Optional
-from talon import imgui, Module, speech_system, actions, app
+from talon import imgui, Module, speech_system, actions, app, ui
 
 # We keep command_history_size lines of history, but by default display only
 # command_history_display of them.
@@ -26,7 +26,7 @@ def on_phrase(j):
 
 
 # todo: dynamic rect?
-@imgui.open(y=0)
+@imgui.open(y=0, x=2800)
 def gui(gui: imgui.GUI):
     global history
     gui.text("Command History")

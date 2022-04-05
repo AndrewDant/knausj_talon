@@ -114,7 +114,7 @@ ctx = Context()
 modifier_keys = {
     # If you find 'alt' is often misrecognized, try using 'alter'.
     "alt": "alt",  #'alter': 'alt',
-    "control": "ctrl",  #'troll':   'ctrl',
+    'troll':   'ctrl',
     "shift": "shift",  #'sky':     'shift',
     "super": "super",
 }
@@ -137,7 +137,7 @@ punctuation_words = {
     "comma": ",",
     "period": ".",
     "full stop": ".",
-    "semicolon": ";",
+    "semi": ";",
     "colon": ":",
     "forward slash": "/",
     "question mark": "?",
@@ -231,7 +231,7 @@ simple_keys = [
 
 alternate_keys = {
     "delete": "backspace",
-    "forward delete": "delete",
+    "kill": "delete",
     #'junk': 'backspace',
     "page up": "pageup",
     "page down": "pagedown",

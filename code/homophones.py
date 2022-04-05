@@ -141,8 +141,8 @@ def gui(gui: imgui.GUI):
         index = 1
         for word in active_word_list:
             if gui.button("Choose {}: {}".format(index, word)):
-                actions.insert(actions.user.homophones_select(index))
                 actions.user.homophones_hide()
+                actions.insert(actions.user.homophones_select(index))
             index = index + 1
 
         if gui.button("Phones hide"):
