@@ -25,7 +25,6 @@ def on_phrase(j):
         history = history[-setting_command_history_size.get() :]
 
 
-# todo: dynamic rect?
 @imgui.open(y=0, x=2800)
 def gui(gui: imgui.GUI):
     global history
