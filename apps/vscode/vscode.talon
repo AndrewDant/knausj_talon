@@ -209,3 +209,12 @@ cell run above: user.vscode("jupyter.runallcellsabove.palette")
 cell run: user.vscode("jupyter.runcurrentcell")
 
 install local: user.vscode("workbench.extensions.action.installVSIX")
+
+dev tools: user.vscode("workbench.action.toggleDevTools")
+
+next: user.vscode("jumpToNextSnippetPlaceholder")
+snip last: user.vscode("jumpToPrevSnippetPlaceholder")
+skip:
+    key("backspace")
+    user.vscode("jumpToNextSnippetPlaceholder")
+previous: user.vscode("jumpToPrevSnippetPlaceholder")
