@@ -10,6 +10,11 @@ touch:
 	# Touch automatically ends left drags so this is for right drags specifically
 	user.mouse_drag_end()
 
+slow touch:
+	mouse_drag(0)
+	sleep(800ms)
+	mouse_release(0)
+
 (righty|rick):
 	mouse_click(1)
 	# close the mouse grid if open
