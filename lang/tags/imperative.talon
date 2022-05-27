@@ -2,7 +2,7 @@ tag: user.code_imperative
 -
 block: user.code_block()
 state if: user.code_state_if()
-state else if: user.code_state_else_if()
+state elif: user.code_state_else_if()
 state else: user.code_state_else()
 state while: user.code_state_while()
 state loop: user.code_state_infinite_loop()
