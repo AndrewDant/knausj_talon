@@ -253,3 +253,5 @@ skip:
     key("backspace")
     user.vscode("jumpToNextSnippetPlaceholder")
 previous: user.vscode("jumpToPrevSnippetPlaceholder")
+
+map switch: user.vscode("editor.action.toggleMinimap")
