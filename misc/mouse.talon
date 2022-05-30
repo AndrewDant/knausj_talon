@@ -14,6 +14,12 @@ slow touch:
 	mouse_drag(0)
 	sleep(800ms)
 	mouse_release(0)
+	
+swipe up:
+	user.mouse_swipe(0, -100)
+
+swipe down:
+	user.mouse_swipe(0, 100)
 
 (righty|rick):
 	mouse_click(1)

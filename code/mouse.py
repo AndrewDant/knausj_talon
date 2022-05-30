@@ -162,6 +162,13 @@ class Actions:
 
         # Start drag
         ctrl.mouse_click(button=button, down=True)
+        
+    def mouse_swipe(horizontal_change: int, vertical_change: int):
+        """Click and drag the cursor a relative distance from the current position"""
+        ctrl.mouse_click(button=0, down=True)
+        actions.mouse_move(actions.mouse_x() + horizontal_change, actions.mouse_y() + vertical_change)
+        actions.sleep("50ms")
+        actions.mouse_release(0)
 
     def mouse_drag_end():
         """ Releases any held mouse buttons """
