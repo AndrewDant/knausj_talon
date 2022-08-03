@@ -155,6 +155,7 @@ symbol_key_words = {
     "dot": ".",
     "point": ".",
     "quote": "'",
+    "question": "?",
     "apostrophe": "'",
     "L square": "[",
     "left square": "[",
@@ -183,7 +184,13 @@ symbol_key_words = {
     "left brace": "{",
     "R brace": "}",
     "close brace": "}",
+    "brack": "{",
+    "bracket": "{",
+    "left bracket": "{",
     "right brace": "}",
+    "r brack": "}",
+    "r bracket": "}",
+    "right bracket": "}",
     "angle": "<",
     "left angle": "<",
     "less than": "<",
@@ -229,6 +236,7 @@ simple_keys = [
 ]
 
 alternate_keys = {
+    "wipe": "backspace",
     "clap": "enter",
     "delete": "backspace",
     "kill": "delete",
