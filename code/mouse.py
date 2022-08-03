@@ -155,7 +155,7 @@ class Actions:
 
         # Start drag
         ctrl.mouse_click(button=button, down=True)
-        
+
     def mouse_swipe(horizontal_change: int, vertical_change: int):
         """Click and drag the cursor a relative distance from the current position"""
         ctrl.mouse_click(button=0, down=True)
@@ -290,7 +290,6 @@ def on_pop(active):
         stop_scroll()
     elif (
         not eye_zoom_mouse.zoom_mouse.enabled
-        and eye_mouse.mouse.attached_tracker is not None
     ):
         if setting_mouse_enable_pop_click.get() >= 1:
             ctrl.mouse_click(button=0, hold=16000)
