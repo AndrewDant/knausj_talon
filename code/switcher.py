@@ -255,6 +255,22 @@ class Actions:
                 return application
         raise RuntimeError(f'App not running: "{name}"')
 
+    def get_window_by_name(name: str) -> ui.Window:
+        """Get the first available window with `name`."""
+        if len(name) < 3:
+            raise RuntimeError(
+                f'Skipped getting window: "{name}" has less than 3 chars.'
+            )
+        for window in ui.windows():
+            if window.title.lower().startswith(name.lower()) :
+                return window
+        raise RuntimeError(f'Window not found: "{name}"')
+
+    def switcher_focus_window_by_name(name: str):
+        """Focus a new window by name"""
+        window = actions.user.get_window_by_name(name)
+        actions.user.switcher_focus_window(window)
+
     def switcher_focus(name: str):
         """Focus a new application by name"""
         app = actions.user.get_running_app(name)
@@ -312,6 +328,39 @@ class Actions:
     def switcher_hide_running():
         """Hides list of running applications"""
         gui_running.hide()
+
+    def get_running_app_list(name: str) -> list[ui.App]:
+        """Get a list of available running apps with `name`."""
+        if len(name) < 3:
+            raise RuntimeError(
+                f'Skipped getting app: "{name}" has less than 3 chars.'
+            )
+
+        name_list = []
+        for running_name, full_application_name in ctx.lists[
+            "self.running"
+        ].items():
+            if running_name == name or running_name.lower().startswith(
+                name.lower()
+            ):
+                name_list.append(full_application_name)
+
+        print(f'{name} Name List Entries: {name_list}')
+
+        application_list = []
+        for application in ui.apps(background=False):
+            if application.name in name_list or (
+                app.platform == "windows"
+                and application.exe.split(os.path.sep)[-1] in name_list
+            ):
+                application_list.append(application)
+
+        print(f'{name} application List Entries: {application_list}')
+
+        if application_list:
+            return application_list
+        else:
+            raise RuntimeError(f'App not running: "{name}"')
 
 
 @imgui.open()
