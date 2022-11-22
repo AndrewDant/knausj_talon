@@ -3,6 +3,7 @@ import os
 from talon import Module, actions, app, clip, cron, ctrl, imgui, noise, ui
 from talon_plugins import eye_mouse, eye_zoom_mouse
 from talon_plugins.eye_mouse import config, toggle_camera_overlay, toggle_control
+import time
 
 key = actions.key
 self = actions.self
@@ -50,6 +51,12 @@ setting_mouse_enable_pop_click = mod.setting(
     type=int,
     default=0,
     desc="Enable pop to click when control mouse is enabled.",
+)
+setting_mouse_enable_pop_drag = mod.setting(
+    "mouse_enable_pop_drag",
+    type=int,
+    default=0,
+    desc="Enable pop to drag when control mouse is enabled. mouse_enable_pop_click has precedence over this",
 )
 setting_mouse_enable_pop_stops_scroll = mod.setting(
     "mouse_enable_pop_stops_scroll",
@@ -160,7 +167,7 @@ class Actions:
         """Click and drag the cursor a relative distance from the current position"""
         ctrl.mouse_click(button=0, down=True)
         actions.mouse_move(actions.mouse_x() + horizontal_change, actions.mouse_y() + vertical_change)
-        actions.sleep("50ms")
+        actions.sleep("20ms")
         actions.mouse_release(0)
 
     def mouse_drag_end():
@@ -284,6 +291,8 @@ def show_cursor_helper(show):
     else:
         ctrl.cursor_visible(show)
 
+last_pop_time = False
+single_click = False
 
 def on_pop(active):
     if setting_mouse_enable_pop_stops_scroll.get() >= 1 and (gaze_job or scroll_job):
@@ -293,6 +302,23 @@ def on_pop(active):
     ):
         if setting_mouse_enable_pop_click.get() >= 1:
             ctrl.mouse_click(button=0, hold=16000)
+        elif setting_mouse_enable_pop_drag.get() >= 1:
+            global last_pop_time, single_click
+            current_time = time.time()
+            print(f"time difference: {current_time - last_pop_time}")
+            if last_pop_time and current_time - last_pop_time > .2:
+                single_click = True
+                cron.after("200ms", pop_drag_handler)
+            else:
+                single_click = False
+            last_pop_time = current_time
+
+def pop_drag_handler():
+    if single_click:
+        ctrl.mouse_click(button=0, hold=16000)
+    else:
+        ctrl.mouse_click(button=0, down=False, up=True)
+        ctrl.mouse_click(button=0, down=True, up=False)
 
 
 noise.register("pop", on_pop)
