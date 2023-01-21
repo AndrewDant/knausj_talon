@@ -265,3 +265,8 @@ skip:
 previous: user.vscode("jumpToPrevSnippetPlaceholder")
 
 map switch: user.vscode("editor.action.toggleMinimap")
+
+merge (lines|line):
+    key("end")
+    key("delete")
+    key("space")
