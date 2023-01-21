@@ -301,7 +301,10 @@ def on_pop(active):
         not eye_zoom_mouse.zoom_mouse.enabled
     ):
         if setting_mouse_enable_pop_click.get() >= 1:
-            ctrl.mouse_click(button=0, hold=16000)
+            if ctrl.mouse_buttons_down():
+                self.mouse_drag_end()
+            else:
+                ctrl.mouse_click(button=0, hold=16000)
         elif setting_mouse_enable_pop_drag.get() >= 1:
             global last_pop_time, single_click
             current_time = time.time()
