@@ -56,3 +56,5 @@ funk wrap <user.code_common_function>:
     user.code_insert_function(code_common_function, edit.selected_text())
 funk wrap <number>:
     user.code_select_function(number - 1, edit.selected_text())
+
+anchor: insert('$')
