@@ -156,6 +156,7 @@ symbol_key_words = {
     "dot": ".",
     "point": ".",
     "quote": "'",
+    "foot": "'",
     "question": "?",
     "apostrophe": "'",
     "L square": "[",
@@ -208,6 +209,7 @@ symbol_key_words = {
     "pipe": "|",
     "dubquote": '"',
     "double quote": '"',
+    "inch": '"',
     # Currencies
     "dollar": "$",
     "pound": "£",

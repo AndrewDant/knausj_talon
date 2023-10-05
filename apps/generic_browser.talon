@@ -30,6 +30,9 @@ show extensions: browser.show_extensions()
 show history: browser.show_history()
 show cache: browser.show_clear_cache()
 
+autofill: key("ctrl-shift-8")
+
+
 #todo - port to apps
 # navigating current page
 # help: key(?)

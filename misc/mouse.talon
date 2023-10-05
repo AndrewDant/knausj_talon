@@ -14,7 +14,7 @@ slow touch:
 	mouse_drag(0)
 	sleep(800ms)
 	mouse_release(0)
-	
+
 swipe up:
 	user.mouse_swipe(0, -100)
 
@@ -26,7 +26,7 @@ swipe down:
 	# close the mouse grid if open
 	user.grid_close()
 
-mid click:
+(mid click|mick):
 	mouse_click(2)
 	# close the mouse grid
 	user.grid_close()

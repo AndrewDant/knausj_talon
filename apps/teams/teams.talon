@@ -64,3 +64,6 @@ view week: key(ctrl-alt-3)
 (safe|send) meeting request: key(ctrl-s)
 join [from] meeting [details]: key(alt-shift-j)
 go to suggested time: key(alt-shift-s)
+
+go back: mouse_click(3)
+go forward: mouse_click(4)
