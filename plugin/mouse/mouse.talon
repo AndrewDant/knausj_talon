@@ -1,7 +1,8 @@
-control mouse: user.mouse_toggle_control_mouse()
-zoom mouse: user.mouse_toggle_zoom_mouse()
-camera overlay: user.mouse_toggle_camera_overlay()
-run calibration: user.mouse_calibrate()
+control mouse: tracking.control_toggle()
+control off: user.mouse_sleep()
+zoom mouse: tracking.control_zoom_toggle()
+camera overlay: tracking.control_debug_toggle()
+run calibration: tracking.calibrate()
 touch:
     mouse_click(0)
     # close the mouse grid if open
@@ -120,3 +121,6 @@ copy mouse position: user.copy_mouse_position()
 curse no:
     # Command added 2021-12-13, can remove after 2022-06-01
     app.notify("Please activate the user.mouse_cursor_commands_enable tag to enable this command")
+
+mouse hiss up: user.hiss_scroll_up()
+mouse hiss down: user.hiss_scroll_down()

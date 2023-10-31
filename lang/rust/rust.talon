@@ -1,4 +1,4 @@
-tag: user.rust
+code.language: rust
 -
 tag(): user.code_comment_line
 tag(): user.code_comment_block_c_like
@@ -84,11 +84,9 @@ is some: user.code_insert_is_not_null()
 implement (struct | structure): user.code_state_implements()
 
 ## for annotating function parameters
-is implemented trait {user.code_trait}:
-    user.code_insert_trait_annotation(code_trait)
+is implemented trait {user.code_trait}: user.code_insert_trait_annotation(code_trait)
 is implemented trait: ": impl "
-returns implemented trait {user.code_trait}:
-    user.code_insert_return_trait(code_trait)
+returns implemented trait {user.code_trait}: user.code_insert_return_trait(code_trait)
 returns implemented trait: " -> impl "
 
 ## for generic reference of traits

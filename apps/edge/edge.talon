@@ -1,4 +1,4 @@
-app: Microsoft Edge
+app: microsoft_edge
 -
 tag(): browser
 tag(): user.tabs

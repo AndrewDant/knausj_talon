@@ -9,7 +9,7 @@ from talon import Context, Module, actions, imgui, registry
 
 mod = Module()
 mod.list("help_contexts", desc="list of available contexts")
-mod.mode("help", "mode for commands that are available only when help is visible")
+mod.tag("help_open", "tag for commands that are available only when help is visible")
 setting_help_max_contexts_per_page = mod.setting(
     "help_max_contexts_per_page",
     type=int,
@@ -74,6 +74,8 @@ def gui_formatters(gui: imgui.GUI):
     for key, val in formatters_words.items():
         gui.text(f"{val}: {key}")
 
+    gui.spacer()
+    gui.text("* prose formatter")
     gui.spacer()
     if gui.button("Help close"):
         gui_formatters.hide()
@@ -537,7 +539,7 @@ class Actions:
         selected_list = ab
         gui_list_help.show()
         register_events(True)
-        actions.mode.enable("user.help")
+        ctx.tags = ["user.help_open"]
 
     def help_formatters(ab: dict):
         """Provides the list of formatter keywords"""
@@ -545,16 +547,10 @@ class Actions:
         global formatters_words
         formatters_words = ab
         reset()
-        # print("help_alphabet - alphabet gui_alphabet: {}".format(gui_alphabet.showing))
-        # print(
-        #     "help_alphabet - gui_context_help showing: {}".format(
-        #         gui_context_help.showing
-        #     )
-        # )
         hide_all_help_guis()
         gui_formatters.show()
         register_events(False)
-        actions.mode.enable("user.help")
+        ctx.tags = ["user.help_open"]
 
     def help_context_enabled():
         """Display contextual command info"""
@@ -563,7 +559,7 @@ class Actions:
         hide_all_help_guis()
         gui_context_help.show()
         register_events(True)
-        actions.mode.enable("user.help")
+        ctx.tags = ["user.help_open"]
 
     def help_context():
         """Display contextual command info"""
@@ -572,7 +568,7 @@ class Actions:
         hide_all_help_guis()
         gui_context_help.show()
         register_events(True)
-        actions.mode.enable("user.help")
+        ctx.tags = ["user.help_open"]
 
     def help_search(phrase: str):
         """Display command info for search phrase"""
@@ -584,7 +580,7 @@ class Actions:
         hide_all_help_guis()
         gui_context_help.show()
         register_events(True)
-        actions.mode.enable("user.help")
+        ctx.tags = ["user.help_open"]
 
     def help_selected_context(m: str):
         """Display command info for selected context"""
@@ -602,7 +598,7 @@ class Actions:
         hide_all_help_guis()
         gui_context_help.show()
         register_events(True)
-        actions.mode.enable("user.help")
+        ctx.tags = ["user.help_open"]
 
     def help_next():
         """Navigates to next page"""
@@ -711,7 +707,7 @@ class Actions:
         hide_all_help_guis()
         refresh_context_command_map()
         register_events(False)
-        actions.mode.disable("user.help")
+        ctx.tags = []
 
 
 def commands_updated(_):

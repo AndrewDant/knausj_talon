@@ -39,8 +39,7 @@ talon dump context:
 ^talon debug tags$: user.talon_debug_tags()
 ^talon debug modes$: user.talon_debug_modes()
 ^talon debug scope {user.talon_scopes}$: user.talon_debug_scope(talon_scopes)
-^talon debug setting {user.talon_settings}$:
-    user.talon_debug_setting(talon_settings)
+^talon debug setting {user.talon_settings}$: user.talon_debug_setting(talon_settings)
 ^talon debug all settings$: user.talon_debug_all_settings()
 ^talon debug active app$:
     result = user.talon_get_active_application_info()
@@ -51,5 +50,10 @@ talon dump context:
     result = user.talon_get_active_application_info()
     clip.set_text(result)
 
+^talon create app context$: user.talon_create_app_context()
+^talon create windows app context$: user.talon_create_app_context("win")
+^talon create linux app context$: user.talon_create_app_context("linux")
+^talon create mac app context$: user.talon_create_app_context("mac")
+
 talon (bug report | report bug):
-    user.open_url("https://github.com/knausj85/knausj_talon/issues")
+    user.open_url("https://github.com/talonhub/community/issues")

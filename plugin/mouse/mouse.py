@@ -1,9 +1,8 @@
 import os
 
-from talon import Module, actions, app, clip, cron, ctrl, imgui, noise, ui
-from talon_plugins import eye_mouse, eye_zoom_mouse
-from talon_plugins.eye_mouse import config, toggle_camera_overlay, toggle_control
+from talon import Context, Module, actions, app, clip, cron, ctrl, imgui, noise, ui
 import time
+from talon_plugins import eye_zoom_mouse
 
 key = actions.key
 self = actions.self
@@ -13,6 +12,7 @@ scroll_job = None
 gaze_job = None
 cancel_scroll_on_pop = True
 control_mouse_forced = False
+hiss_scroll_up = False
 
 default_cursor = {
     "AppStarting": r"%SystemRoot%\Cursors\aero_working.ani",
@@ -40,6 +40,8 @@ hidden_cursor = os.path.join(
 )
 
 mod = Module()
+ctx = Context()
+
 mod.list(
     "mouse_button", desc="List of mouse button words to mouse_click index parameter"
 )
@@ -50,7 +52,7 @@ setting_mouse_enable_pop_click = mod.setting(
     "mouse_enable_pop_click",
     type=int,
     default=0,
-    desc="Enable pop to click when control mouse is enabled.",
+    desc="Pop noise clicks left mouse button. 0 = off, 1 = on with eyetracker but not with zoom mouse mode, 2 = on but not with zoom mouse mode",
 )
 setting_mouse_enable_pop_drag = mod.setting(
     "mouse_enable_pop_drag",
@@ -63,6 +65,12 @@ setting_mouse_enable_pop_stops_scroll = mod.setting(
     type=int,
     default=0,
     desc="When enabled, pop stops continuous scroll modes (wheel upper/downer/gaze)",
+)
+setting_mouse_enable_hiss_scroll = mod.setting(
+    "mouse_enable_hiss_scroll",
+    type=bool,
+    default=False,
+    desc="Hiss noise scrolls down when enabled",
 )
 setting_mouse_wake_hides_cursor = mod.setting(
     "mouse_wake_hides_cursor",
@@ -118,42 +126,10 @@ class Actions:
 
     def mouse_wake():
         """Enable control mouse, zoom mouse, and disables cursor"""
-        eye_zoom_mouse.toggle_zoom_mouse(True)
-        # eye_mouse.control_mouse.enable()
+        actions.tracking.control_zoom_toggle(True)
+
         if setting_mouse_wake_hides_cursor.get() >= 1:
             show_cursor_helper(False)
-
-    def mouse_calibrate():
-        """Start calibration"""
-        eye_mouse.calib_start()
-
-    def mouse_toggle_control_mouse(enabled: bool = None):
-        """Toggles control mouse. Pass in a bool to enable it, otherwise toggle the current state"""
-        if enabled is not None:
-            toggle_control(enabled)
-        else:
-            toggle_control(not config.control_mouse)
-
-    def mouse_toggle_camera_overlay():
-        """Toggles camera overlay"""
-        toggle_camera_overlay(not config.show_camera)
-
-    def mouse_toggle_zoom_mouse():
-        """Toggles zoom mouse"""
-        eye_zoom_mouse.toggle_zoom_mouse(not eye_zoom_mouse.zoom_mouse.enabled)
-
-    def mouse_cancel_zoom_mouse():
-        """Cancel zoom mouse if pending"""
-        if (
-            eye_zoom_mouse.zoom_mouse.enabled
-            and eye_zoom_mouse.zoom_mouse.state != eye_zoom_mouse.STATE_IDLE
-        ):
-            eye_zoom_mouse.zoom_mouse.cancel()
-
-    def mouse_trigger_zoom_mouse():
-        """Trigger zoom mouse if enabled"""
-        if eye_zoom_mouse.zoom_mouse.enabled:
-            eye_zoom_mouse.zoom_mouse.on_pop(eye_zoom_mouse.zoom_mouse.state)
 
     def mouse_drag(button: int):
         """Press and hold/release a specific mouse button for dragging"""
@@ -178,8 +154,10 @@ class Actions:
 
     def mouse_sleep():
         """Disables control mouse, zoom mouse, and re-enables cursor"""
-        eye_zoom_mouse.toggle_zoom_mouse(False)
-        toggle_control(False)
+        actions.tracking.control_zoom_toggle(False)
+        actions.tracking.control_toggle(False)
+        actions.tracking.control1_toggle(False)
+
         show_cursor_helper(True)
         stop_scroll()
 
@@ -242,8 +220,8 @@ class Actions:
 
         # enable 'control mouse' if eye tracker is present and not enabled already
         global control_mouse_forced
-        if eye_mouse.tracker is not None and not config.control_mouse:
-            toggle_control(True)
+        if not actions.tracking.control_enabled():
+            actions.tracking.control_toggle(True)
             control_mouse_forced = True
 
     def copy_mouse_position():
@@ -255,6 +233,16 @@ class Actions:
         """move the mouse cursor to the center of the currently active window"""
         rect = ui.active_window().rect
         ctrl.mouse_move(rect.left + (rect.width / 2), rect.top + (rect.height / 2))
+
+    def hiss_scroll_up():
+        """Change mouse hiss scroll direction to up"""
+        global hiss_scroll_up
+        hiss_scroll_up = True
+
+    def hiss_scroll_down():
+        """Change mouse hiss scroll direction to down"""
+        global hiss_scroll_up
+        hiss_scroll_up = False
 
 
 def show_cursor_helper(show):
@@ -324,7 +312,45 @@ def pop_drag_handler():
         ctrl.mouse_click(button=0, down=True, up=False)
 
 
-noise.register("pop", on_pop)
+# TODO should I keep this or replace it with the new stuff?
+# noise.register("pop", on_pop)
+
+@ctx.action_class("user")
+class UserActions:
+    def noise_trigger_pop():
+        if setting_mouse_enable_pop_stops_scroll.get() >= 1 and (
+            gaze_job or scroll_job
+        ):
+            # Allow pop to stop scroll
+            stop_scroll()
+        else:
+            # Otherwise respect the mouse_enable_pop_click setting
+            setting_val = setting_mouse_enable_pop_click.get()
+
+            is_using_eye_tracker = (
+                actions.tracking.control_zoom_enabled()
+                or actions.tracking.control_enabled()
+                or actions.tracking.control1_enabled()
+            )
+            should_click = (
+                setting_val == 2 and not actions.tracking.control_zoom_enabled()
+            ) or (
+                setting_val == 1
+                and is_using_eye_tracker
+                and not actions.tracking.control_zoom_enabled()
+            )
+            if should_click:
+                ctrl.mouse_click(button=0, hold=16000)
+
+    def noise_trigger_hiss(active: bool):
+        if setting_mouse_enable_hiss_scroll.get():
+            if active:
+                if hiss_scroll_up:
+                    actions.user.mouse_scroll_up_continuous()
+                else:
+                    actions.user.mouse_scroll_down_continuous()
+            else:
+                actions.user.mouse_scroll_stop()
 
 
 def mouse_scroll(amount):
@@ -343,17 +369,13 @@ def mouse_scroll(amount):
 def scroll_continuous_helper():
     global scroll_amount
     # print("scroll_continuous_helper")
-    if scroll_amount and (
-        eye_zoom_mouse.zoom_mouse.state == eye_zoom_mouse.STATE_IDLE
-    ):  # or eye_zoom_mouse.zoom_mouse.state == eye_zoom_mouse.STATE_SLEEP):
+    if scroll_amount and (eye_zoom_mouse.zoom_mouse.state == eye_zoom_mouse.STATE_IDLE):
         actions.mouse_scroll(by_lines=False, y=int(scroll_amount / 10))
 
 
 def start_scroll():
     global scroll_job
     scroll_job = cron.interval("60ms", scroll_continuous_helper)
-    # if eye_zoom_mouse.zoom_mouse.enabled and eye_mouse.mouse.attached_tracker is not None:
-    #    eye_zoom_mouse.zoom_mouse.sleep(True)
 
 
 def gaze_scroll():
@@ -397,8 +419,8 @@ def stop_scroll():
         cron.cancel(gaze_job)
 
     global control_mouse_forced
-    if control_mouse_forced and config.control_mouse:
-        toggle_control(False)
+    if control_mouse_forced:
+        actions.tracking.control_toggle(False)
         control_mouse_forced = False
 
     scroll_job = None
@@ -407,29 +429,8 @@ def stop_scroll():
 
     continuous_scoll_mode = ""
 
-    # if eye_zoom_mouse.zoom_mouse.enabled and eye_mouse.mouse.attached_tracker is not None:
-    #    eye_zoom_mouse.zoom_mouse.sleep(False)
-
 
 def start_cursor_scrolling():
     global scroll_job, gaze_job
     stop_scroll()
     gaze_job = cron.interval("60ms", gaze_scroll)
-    # if eye_zoom_mouse.zoom_mouse.enabled and eye_mouse.mouse.attached_tracker is not None:
-    #    eye_zoom_mouse.zoom_mouse.sleep(True)
-
-
-if app.platform == "mac":
-    from talon import tap
-
-    def on_move(e):
-        if not config.control_mouse:
-            buttons = ctrl.mouse_buttons_down()
-            # print(str(ctrl.mouse_buttons_down()))
-            if not e.flags & tap.DRAG and buttons:
-                e.flags |= tap.DRAG
-                # buttons is a set now
-                e.button = list(buttons)[0]
-                e.modify()
-
-    tap.register(tap.MMOVE | tap.HOOK, on_move)
