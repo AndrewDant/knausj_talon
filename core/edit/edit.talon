@@ -112,6 +112,7 @@ copy line end: user.copy_line_end()
 copy word: user.copy_word()
 copy word left: user.copy_word_left()
 copy word right: user.copy_word_right()
+copier: edit.copy()
 
 #to do: do we want these variants, seem to conflict
 # copy left:
@@ -136,6 +137,7 @@ cut line end: user.cut_line_end()
 cut word: user.cut_word()
 cut word left: user.cut_word_left()
 cut word right: user.cut_word_right()
+cutter: edit.cut()
 
 #to do: do we want these variants
 # cut left:
@@ -162,6 +164,7 @@ paste match: edit.paste_match_style()
 (pace | paste) line start: user.paste_line_start()
 (pace | paste) line end: user.paste_line_end()
 (pace | paste) word: user.paste_word()
+paster: edit.paste()
 
 # Duplication
 clone that: edit.selection_clone()
