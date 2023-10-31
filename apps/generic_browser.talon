@@ -32,7 +32,6 @@ show cache: browser.show_clear_cache()
 
 autofill: key("ctrl-shift-8")
 
-
 #todo - port to apps
 # navigating current page
 # help: key(?)

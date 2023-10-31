@@ -6,4 +6,4 @@ tag(): user.file_manager
 go app data: user.file_manager_open_directory("%AppData%")
 go program files: user.file_manager_open_directory("%programfiles%")
 
-rename file|file rename: key(f2)
+rename file | file rename: key(f2)

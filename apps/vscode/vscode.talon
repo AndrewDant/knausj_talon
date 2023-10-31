@@ -7,7 +7,7 @@ tag(): user.multiple_cursors
 tag(): user.snippets
 tag(): user.splits
 tag(): user.tabs
-(window reload|reload window): user.vscode("workbench.action.reloadWindow")
+(window reload | reload window): user.vscode("workbench.action.reloadWindow")
 window close: user.vscode("workbench.action.closeWindow")
 #multiple_cursor.py support end
 
@@ -43,9 +43,11 @@ focus editor: user.vscode("workbench.action.focusActiveEditorGroup")
 show settings: user.vscode("workbench.action.openGlobalSettings")
 show settings json: user.vscode("workbench.action.openSettingsJson")
 show settings folder: user.vscode("workbench.action.openFolderSettings")
-show settings folder json: user.vscode("workbench.action.openFolderSettingsFile")
+show settings folder json:
+    user.vscode("workbench.action.openFolderSettingsFile")
 show settings workspace: user.vscode("workbench.action.openWorkspaceSettings")
-show settings workspace json: user.vscode("workbench.action.openWorkspaceSettingsFile")
+show settings workspace json:
+    user.vscode("workbench.action.openWorkspaceSettingsFile")
 show shortcuts: user.vscode("workbench.action.openGlobalKeybindings")
 show snippets: user.vscode("workbench.action.openSnippets")
 
@@ -62,9 +64,9 @@ file hunt [<user.text>]:
     sleep(50ms)
     insert(text or "")
 file hunt (pace | paste):
-  user.vscode("workbench.action.quickOpen")
-  sleep(50ms)
-  edit.paste()
+    user.vscode("workbench.action.quickOpen")
+    sleep(50ms)
+    edit.paste()
 file copy name: user.vscode("fileutils.copyFileName")
 file copy path: user.vscode("copyFilePath")
 file copy local [path]: user.vscode("copyRelativeFilePath")
@@ -79,8 +81,8 @@ file move:
     user.vscode("fileutils.moveFile")
     sleep(150ms)
 file clone:
-	  user.vscode("fileutils.duplicateFile")
-	  sleep(150ms)
+    user.vscode("fileutils.duplicateFile")
+    sleep(150ms)
 file delete:
     user.vscode("fileutils.removeFile")
     sleep(150ms)
@@ -221,14 +223,14 @@ copy line up: user.vscode("editor.action.copyLinesUpAction")
 
 #Expand/Shrink AST Selection
 select less: user.vscode("editor.action.smartSelect.shrink")
-select (more|this): user.vscode("editor.action.smartSelect.expand")
+select (more | this): user.vscode("editor.action.smartSelect.expand")
 
 minimap: user.vscode("editor.action.toggleMinimap")
 maximize: user.vscode("workbench.action.minimizeOtherEditors")
 restore: user.vscode("workbench.action.evenEditorWidths")
 
 #breadcrumb
-select breadcrumb: user.vscode('breadcrumbs.focusAndSelect')
+select breadcrumb: user.vscode("breadcrumbs.focusAndSelect")
 # Use `alt-left` and `alt-right` to navigate the bread crumb
 
 replace here:
@@ -266,7 +268,7 @@ previous: user.vscode("jumpToPrevSnippetPlaceholder")
 
 map switch: user.vscode("editor.action.toggleMinimap")
 
-merge (lines|line):
+merge (lines | line):
     key("end")
     key("delete")
     key("space")
