@@ -1,4 +1,4 @@
-user.draft_editor_running: True
+# user.draft_editor_running: True
 not tag: user.draft_editor_app_focused
 -
 

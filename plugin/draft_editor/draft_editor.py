@@ -1,4 +1,4 @@
-from talon import Context, Module, actions, ui
+from talon import Context, Module, actions, ui, actions
 
 mod = Module()
 mod.tag("draft_editor_active", "Indicates whether the draft editor has been activated")
@@ -96,6 +96,14 @@ class Actions:
 
 def get_editor_app() -> ui.App:
     editor_names = get_editor_names()
+
+    for app in ui.apps(background=False):
+        if app.name in editor_names:
+            return app
+
+    # editor isn't open
+    actions.user.switcher_launch('Microsoft.VisualStudioCode')
+    actions.sleep("800ms")
 
     for app in ui.apps(background=False):
         if app.name in editor_names:
