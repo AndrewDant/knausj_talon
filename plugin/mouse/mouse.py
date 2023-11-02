@@ -340,7 +340,10 @@ class UserActions:
                 and not actions.tracking.control_zoom_enabled()
             )
             if should_click:
-                ctrl.mouse_click(button=0, hold=16000)
+                if ctrl.mouse_buttons_down():
+                    self.mouse_drag_end()
+                else:
+                    ctrl.mouse_click(button=0, hold=16000)
 
     def noise_trigger_hiss(active: bool):
         if setting_mouse_enable_hiss_scroll.get():
