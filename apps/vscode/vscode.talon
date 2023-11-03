@@ -112,7 +112,7 @@ problem fix: user.vscode("problems.action.showQuickFixes")
 rename that: user.vscode("editor.action.rename")
 refactor that: user.vscode("editor.action.refactor")
 whitespace trim: user.vscode("editor.action.trimTrailingWhitespace")
-language switch: user.vscode("workbench.action.editor.changeLanguageMode")
+(language switch|switch language): user.vscode("workbench.action.editor.changeLanguageMode")
 refactor rename: user.vscode("editor.action.rename")
 refactor this: user.vscode("editor.action.refactor")
 
