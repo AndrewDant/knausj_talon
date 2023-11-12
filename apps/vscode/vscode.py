@@ -1,3 +1,4 @@
+import json
 from talon import Context, Module, actions, app
 
 is_mac = app.platform == "mac"
