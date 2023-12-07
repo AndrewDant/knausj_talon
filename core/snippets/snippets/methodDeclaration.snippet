@@ -11,3 +11,12 @@ $1($2) {
     $0
 }
 ---
+
+language: python
+
+$1.insertionFormatter: SNAKE_CASE
+-
+def $1($2):
+    """$3"""
+    $0
+---
