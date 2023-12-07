@@ -64,5 +64,5 @@ view week: key(ctrl-alt-3)
 join [from] meeting [details]: key(alt-shift-j)
 go to suggested time: key(alt-shift-s)
 
-go back: mouse_click(3)
-go forward: mouse_click(4)
+go back: key(alt-left)
+go forward: key(alt-right)
