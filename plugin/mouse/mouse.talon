@@ -20,7 +20,7 @@ swipe up: user.mouse_swipe(0, -100)
 
 swipe down: user.mouse_swipe(0, 100)
 
-(righty | rick):
+(rick):
     mouse_click(1)
     # close the mouse grid if open
     user.grid_close()
@@ -43,7 +43,7 @@ swipe down: user.mouse_swipe(0, 100)
     key("{modifiers}:up")
     # close the mouse grid
     user.grid_close()
-<user.modifiers> righty:
+<user.modifiers> rick:
     key("{modifiers}:down")
     mouse_click(1)
     key("{modifiers}:up")
@@ -64,7 +64,7 @@ left drag | drag:
     user.mouse_drag(0)
     # close the mouse grid
     user.grid_close()
-right drag | righty drag:
+right drag | rag:
     user.mouse_drag(1)
     # close the mouse grid
     user.grid_close()
