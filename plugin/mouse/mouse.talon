@@ -1,3 +1,6 @@
+mode: command
+mode: user.gaming
+-
 control mouse: tracking.control_toggle()
 control off: user.mouse_sleep()
 zoom mouse: tracking.control_zoom_toggle()
