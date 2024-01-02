@@ -1,3 +1,6 @@
+mode: command
+mode: user.gaming
+-
 go <user.arrow_keys>: user.move_cursor(arrow_keys)
 <user.letter>: key(letter)
 (ship | uppercase) <user.letters> [(lowercase | sunk)]:
