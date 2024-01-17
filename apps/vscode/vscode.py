@@ -1,6 +1,9 @@
 import json
 from talon import Context, Module, actions, app
 
+mod = Module()
+mod.tag("vscode_notebook", desc="Vscode is in a notebook")
+
 is_mac = app.platform == "mac"
 
 ctx = Context()
