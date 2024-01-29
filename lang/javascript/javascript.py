@@ -37,7 +37,6 @@ ctx.lists["user.code_common_member_function"] = {
     "join": "join",
     "includes": "includes",
     "map": "map",
-    "pop": "pop",
     "push": "push",
     "reduce": "reduce",
     "slice": "slice",
