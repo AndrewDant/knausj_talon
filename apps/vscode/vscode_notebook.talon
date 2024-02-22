@@ -53,6 +53,8 @@ unfold cell:                user.vscode("notebook.cell.expandCellInput")
 fold every cell:            user.vscode("notebook.cell.collapseAllCellInputs")
 unfold every cell:          user.vscode("notebook.cell.expandAllCellInputs")
 
+toggle line numbers:        user.vscode("notebook.cell.toggleLineNumbers")
+
 # Output
 chuck output:               user.vscode("notebook.cell.clearOutputs")
 chuck every output:         user.vscode("notebook.clearAllCellsOutputs")
