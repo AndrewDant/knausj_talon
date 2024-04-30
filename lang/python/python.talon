@@ -50,6 +50,11 @@ dock returns type {user.code_type}: user.insert_between(":rtype ", ": {code_type
 toggle imports: user.code_toggle_libraries()
 import <user.code_libraries>:
     user.code_insert_library(code_libraries, "")
-    key(end enter)
+
+from <user.code_libraries>:
+    user.paste("from {code_libraries}")
+
+from <user.code_libraries> import:
+    user.code_insert_from_library(code_libraries)
 
 from import: user.insert_between("from ", " import ")

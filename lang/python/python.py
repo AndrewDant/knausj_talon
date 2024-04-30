@@ -7,6 +7,17 @@ ctx = Context()
 ctx.matches = r"""
 code.language: python
 """
+
+# tag: libraries_gui
+ctx.lists["user.code_libraries"] = {
+    "plot": "matplotlib.pyplot as plot",
+    "learn": "sklearn",
+    "numpy": "numpy",
+    "regex": "re",
+    "natural language": "nltk",
+    "pandas": "pandas"
+}
+
 ctx.lists["user.code_common_function"] = {
     "enumerate": "enumerate",
     "integer": "int",
@@ -145,6 +156,10 @@ ctx.lists["user.python_exception"] = {
     for exception in exception_list
 }
 
+@mod.action_class
+class ModuleActions:
+    def code_insert_from_library(text: str):
+        """an import line where the library name is in the middle"""
 
 @ctx.action_class("user")
 class UserActions:
@@ -346,3 +361,9 @@ class UserActions:
 
     def code_insert_return_type(type: str):
         actions.insert(f" -> {type}")
+
+    def code_insert_library(text: str, selection: str):
+        actions.user.paste(f"import {text}")
+
+    def code_insert_from_library(text: str):
+        actions.user.paste(f"from {text} import ")
