@@ -146,6 +146,14 @@ formatters_dict = {
         NOSEP,
         first_vs_rest(lambda w: w.lower(), lambda w: "_" + w.lower()),
     ),
+    "TITLE_SNAKE_CASE": (
+        NOSEP,
+        lambda i, word, _: ("" if i == 0 else "_") + title_case()(i, word, True),
+    ),
+    "ALL_CAPS_SNAKE_CASE": (
+        NOSEP,
+        lambda i, word, _: ("" if i == 0 else "_") + word.upper(),
+    ),
     "NO_SPACES": (NOSEP, every_word(lambda w: w)),
     "DASH_SEPARATED": words_with_joiner("-"),
     "TERMINAL_DASH_SEPARATED": (
@@ -172,6 +180,7 @@ formatters_dict = {
 code_formatter_names = {
     "all cap": "ALL_CAPS",
     "all down": "ALL_LOWERCASE",
+    "lowercase": "ALL_LOWERCASE",
     "camel": "PRIVATE_CAMEL_CASE",
     "dotted": "DOT_SEPARATED",
     "dub string": "DOUBLE_QUOTED_STRING",
@@ -183,6 +192,9 @@ code_formatter_names = {
     "slasher": "SLASH_SEPARATED",
     "smash": "NO_SPACES",
     "snake": "SNAKE_CASE",
+    "title snake": "TITLE_SNAKE_CASE",
+    "big snake": "ALL_CAPS_SNAKE_CASE",
+    "all cap snake": "ALL_CAPS_SNAKE_CASE",
     "string": "SINGLE_QUOTED_STRING",
 }
 prose_formatter_names = {
