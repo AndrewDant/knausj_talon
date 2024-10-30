@@ -154,6 +154,7 @@ formatters_dict = {
         NOSEP,
         lambda i, word, _: ("" if i == 0 else "_") + word.upper(),
     ),
+    "ALL_CAPS_NO_SPACES": (NOSEP, every_word(lambda w: w.upper())),
     "NO_SPACES": (NOSEP, every_word(lambda w: w)),
     "DASH_SEPARATED": words_with_joiner("-"),
     "TERMINAL_DASH_SEPARATED": (
@@ -195,6 +196,7 @@ code_formatter_names = {
     "title snake": "TITLE_SNAKE_CASE",
     "big snake": "ALL_CAPS_SNAKE_CASE",
     "all cap snake": "ALL_CAPS_SNAKE_CASE",
+    "big smash": "ALL_CAPS_NO_SPACES",
     "string": "SINGLE_QUOTED_STRING",
 }
 prose_formatter_names = {
