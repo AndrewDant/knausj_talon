@@ -51,6 +51,10 @@ toggle imports: user.code_toggle_libraries()
 import <user.code_libraries>:
     user.code_insert_library(code_libraries, "")
 
+import <user.code_libraries> as:
+    user.code_insert_library(code_libraries, "")
+    insert(" as ")
+
 from <user.code_libraries>:
     user.paste("from {code_libraries}")
 

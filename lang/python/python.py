@@ -15,7 +15,8 @@ ctx.lists["user.code_libraries"] = {
     "numpy": "numpy",
     "regex": "re",
     "natural language": "nltk",
-    "pandas": "pandas"
+    "pandas": "pandas",
+    "tensor flow": "tensorflow"
 }
 
 ctx.lists["user.code_common_function"] = {
