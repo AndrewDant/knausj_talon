@@ -2,6 +2,13 @@ settings():
     # Adjust the scale of the imgui
     imgui.scale = 1.3
 
+    # Uncomment to set the speech timeout. This is the amount of time after you stop
+    # speaking until Talon starts processing the spoken audio. Default is 0.3s.
+    # speech.timeout = 0.3
+
+    # Uncomment to enable dark mode for talon help menus
+    # imgui.dark_mode = true
+
     # If `true`, automatically show the picker GUI when the file manager has focus
     user.file_manager_auto_show_pickers = false
 
@@ -14,8 +21,14 @@ settings():
     # The default amount used when scrolling continuously
     user.mouse_continuous_scroll_amount = 120
 
+    # Set the maximum acceleration factor when scrolling continuously. 1=constant speed/no acceleration.
+    user.mouse_continuous_scroll_acceleration = 1
+
     # If `true`, stop continuous scroll/gaze scroll with a pop
     user.mouse_enable_pop_stops_scroll = true
+
+    # If `true`, stop mouse drag with a pop
+    user.mouse_enable_pop_stops_drag = true
 
     # Choose how pop click should work in 'control mouse' mode
     # 0 = off
@@ -47,8 +60,12 @@ settings():
     # Set the total number of command history lines to display
     user.command_history_size = 50
 
-    # Uncomment the below line to add a directory (relative to the Talon user dir) with additional .snippet files
-    # Changing this setting requires a restart of Talon
+    # Set the time window size for to for pop_twice_to_sleep and pop_twice_to_repeat. By default, the pops must be more than 0.1 seconds apart and less then 0.3 seconds, to reduce false positives
+    user.double_pop_speed_minimum = 0.1
+    user.double_pop_speed_maximum = 0.3
+
+    # Uncomment to add a directory (relative to the Talon user dir) with additional
+    # .snippet files. Changing this setting requires a restart of Talon.
     user.snippets_dir = "work_talon"
 
     # Uncomment to insert text longer than 10 characters (customizable) by pasting from
@@ -67,12 +84,28 @@ settings():
     # -width windows are resized to stay full-height/width.
     # user.window_snap_screen = "size aware"
 
+    # Puts Talon into sleep mode if no commands are spoken for a defined period of time.
+    # user.listening_timeout_minutes = 3
+
+    # Time in seconds to wait for the clipboard to change when trying to get selected text
+    # user.selected_text_timeout = 0.25
+
 # Uncomment to enable the curse yes/curse no commands (show/hide mouse cursor).
 # See issue #688 for more detail: https://github.com/talonhub/community/issues/688
 tag(): user.mouse_cursor_commands_enable
 
-# Uncomment the below to disable support for saying numbers without a prefix.
-# By default saying "one" would write "1", however many users find this behavior
-# prone to false positives. If you uncomment this, you will need to say
-# "numb one" to write "1". Note that this tag will eventually be activated by default
-# tag(): user.prefixed_numbers
+# Uncomment below enable pop_twice_to_wake
+# Without this tag noise_trigger_pop is usually associated with pop to click actions
+# Enabling this tag disables other pop to click actions in sleep mode, including pop to click
+# tag(): user.pop_twice_to_wake
+
+# Uncomment below enable pop_twice_to_repeat
+# Enabling this tag will repeat the last command when two pops are heard within the allotted time window
+# Without this tag noise_trigger_pop is usually associated with pop to click actions
+# Enabling this tag disables other pop to click actions in command mode, including pop to click
+# tag(): user.pop_twice_to_repeat
+
+# Uncomment the below to enable support for saying numbers without a prefix.
+# By default you need to say "numb one" to write "1". If you uncomment this,
+# you can say "one" to write "1".
+# tag(): user.unprefixed_numbers

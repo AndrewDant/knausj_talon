@@ -8,7 +8,7 @@ camera overlay: tracking.control_debug_toggle()
 run calibration: tracking.calibrate()
 touch:
     # close zoom if open
-    user.zoom_close()
+    tracking.zoom_cancel()
     mouse_click(0)
     # close the mouse grid if open
     user.grid_close()
@@ -27,14 +27,14 @@ swipe down: user.mouse_swipe(0, 100)
 
 (rick):
     # close zoom if open
-    user.zoom_close()
+    tracking.zoom_cancel()
     mouse_click(1)
     # close the mouse grid if open
     user.grid_close()
 
 (mid click | mick):
     # close zoom if open
-    user.zoom_close()
+    tracking.zoom_cancel()
     mouse_click(2)
     # close the mouse grid
     user.grid_close()
@@ -48,7 +48,7 @@ swipe down: user.mouse_swipe(0, 100)
 #super = windows key
 <user.modifiers> touch:
     # close zoom if open
-    user.zoom_close()
+    tracking.zoom_cancel()
     key("{modifiers}:down")
     mouse_click(0)
     key("{modifiers}:up")
@@ -56,7 +56,7 @@ swipe down: user.mouse_swipe(0, 100)
     user.grid_close()
 <user.modifiers> rick:
     # close zoom if open
-    user.zoom_close()
+    tracking.zoom_cancel()
     key("{modifiers}:down")
     mouse_click(1)
     key("{modifiers}:up")
@@ -64,14 +64,14 @@ swipe down: user.mouse_swipe(0, 100)
     user.grid_close()
 (dub click | duke):
     # close zoom if open
-    user.zoom_close()
+    tracking.zoom_cancel()
     mouse_click()
     mouse_click()
     # close the mouse grid
     user.grid_close()
 (trip click | trip lick):
     # close zoom if open
-    user.zoom_close()
+    tracking.zoom_cancel()
     mouse_click()
     mouse_click()
     mouse_click()
@@ -79,12 +79,13 @@ swipe down: user.mouse_swipe(0, 100)
     user.grid_close()
 left drag | drag | drag start:
     # close zoom if open
-    user.zoom_close()
+    tracking.zoom_cancel()
     user.mouse_drag(0)
     # close the mouse grid
     user.grid_close()
-right drag | rag:
-    user.zoom_close()
+right drag | righty drag | rag:
+    # close zoom if open
+    tracking.zoom_cancel()
     user.mouse_drag(1)
     # close the mouse grid
     user.grid_close()
