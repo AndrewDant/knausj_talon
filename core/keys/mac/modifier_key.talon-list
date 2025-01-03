@@ -10,3 +10,6 @@ command: cmd
 option: alt
 function: fn
 globe: fn
+
+# user custom
+troll: ctrl

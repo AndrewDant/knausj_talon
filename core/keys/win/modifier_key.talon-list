@@ -9,3 +9,6 @@ shift: shift
 super: super
 command: ctrl
 option: alt
+
+# user custom
+troll: ctrl

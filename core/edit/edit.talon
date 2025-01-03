@@ -113,6 +113,7 @@ cutter: edit.cut()
 
 # Paste
 (pace | paste) that: edit.paste()
+paster: edit.paste()
 (pace | paste) enter:
     edit.paste()
     key(enter)
