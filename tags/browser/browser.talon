@@ -28,4 +28,7 @@ show extensions: browser.show_extensions()
 show history: browser.show_history()
 show cache: browser.show_clear_cache()
 
+# hotkey I've been using for a while
 autofill: key("ctrl-shift-8")
+# seems to be the default hot key at least for firefox
+default autofill: key("ctrl-shift-l")

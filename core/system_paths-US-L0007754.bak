@@ -1,0 +1,16 @@
+list: user.system_paths
+hostname: US-L0007754
+-
+user: C:\Users\andrew.dant
+desktop: C:\Users\andrew.dant\Desktop
+desk: C:\Users\andrew.dant\Desktop
+documents: C:\Users\andrew.dant\Documents
+docks: C:\Users\andrew.dant\Documents
+downloads: C:\Users\andrew.dant\Downloads
+music: C:\Users\andrew.dant\Music
+pictures: C:\Users\andrew.dant\Pictures
+videos: C:\Users\andrew.dant\Videos
+talon home: C:\Users\andrew.dant\AppData\Roaming\talon
+talon recordings: C:\Users\andrew.dant\AppData\Roaming\talon\recordings
+talon user: C:\Users\andrew.dant\AppData\Roaming\talon\user
+profile: C:\Users\andrew.dant

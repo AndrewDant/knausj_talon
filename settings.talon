@@ -92,7 +92,7 @@ settings():
 
 # Uncomment to enable the curse yes/curse no commands (show/hide mouse cursor).
 # See issue #688 for more detail: https://github.com/talonhub/community/issues/688
-tag(): user.mouse_cursor_commands_enable
+# tag(): user.mouse_cursor_commands_enable
 
 # Uncomment below enable pop_twice_to_wake
 # Without this tag noise_trigger_pop is usually associated with pop to click actions
@@ -108,4 +108,4 @@ tag(): user.mouse_cursor_commands_enable
 # Uncomment the below to enable support for saying numbers without a prefix.
 # By default you need to say "numb one" to write "1". If you uncomment this,
 # you can say "one" to write "1".
-# tag(): user.unprefixed_numbers
+tag(): user.unprefixed_numbers
