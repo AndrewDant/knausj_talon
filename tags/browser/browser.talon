@@ -32,3 +32,5 @@ show cache: browser.show_clear_cache()
 autofill: key("ctrl-shift-8")
 # seems to be the default hot key at least for firefox
 default autofill: key("ctrl-shift-l")
+
+generate password: key("ctrl-shift-9")
